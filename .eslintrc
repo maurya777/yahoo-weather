@@ -1,0 +1,41 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["eslint:recommended"],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "amd": true,
+    "es6": true,
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "eqeqeq": 2,
+    "semi": 2,
+    "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
+    "comma-dangle": 1,
+    "quotes": [ 1, "single", { "avoidEscape": true } ],
+    "no-undef": 1,
+    "no-var": 1,
+    "no-lonely-if": 1,
+    "no-unneeded-ternary": 1,
+    "prefer-const": ["warn", {"destructuring": "all"}],
+    "prefer-spread": 1,
+    "global-strict": 0,
+    "no-extra-semi": 1,
+    "no-underscore-dangle": 0,
+    "no-console": 1,
+    "no-unused-vars": ["warn", { "varsIgnorePattern": "shallow|mount"}],
+    "no-trailing-spaces": [1, { "skipBlankLines": true }],
+    "no-unreachable": 1,
+    "no-alert": 0,
+    "no-tabs": "error",
+    "no-debugger": 1
+  }
+}

@@ -1,0 +1,77 @@
+@import 'variables';
+
+.widget-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  .widget {
+    width: $widget-width;
+    height: $widget-height;
+    background-color: #ffffff;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    padding: 10px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 1px solid #cccccc;
+
+    -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+
+
+    .city {
+      font-size: 20px;
+    }
+
+    .weather {
+      .temperature {
+        text-shadow: 1px 1px 1px rgba(0,0,0,.54);
+        font-size: 80px;
+        float: left;
+      }
+
+      .overall {
+        font-size: 10px;
+        float: left;
+        padding: 0 15px;
+      }
+
+    }
+
+    .forecast {
+      width: 100%;
+      height: 35px;
+      position: absolute;
+      bottom: 10px;
+      .day {
+        height: 100%;
+        float: left;
+        border-left: 1px solid lightgrey;
+        &:first-child {
+          border-left: 1px solid transparent;
+        }
+        width: ($widget-width/5) - 1;
+        .day-of-week {
+          padding: 0 10px;
+        }
+        .range {
+          font-size: 10px;
+          padding: 0 10px;
+          >div{
+            display: inline;
+          }
+        }
+
+      }
+
+    }
+
+  }
+
+}
