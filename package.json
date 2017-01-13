@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "clean": "rimraf dist/*",
-    "dist": "webpack --env=dist",
+    "copy": "copyfiles -f ./src/index.html ./dist",
+    "dist": "npm run copy & webpack --env=dist",
     "lint": "eslint ./src && sass-lint -v -q",
     "release:major": "npm version major && npm publish && git push --follow-tags",
     "release:minor": "npm version minor && npm publish && git push --follow-tags",
@@ -39,6 +40,7 @@
     "bootstrap-sass": "^3.3.7",
     "chai": "^3.2.0",
     "classnames": "^2.2.5",
+    "copyfiles": "^1.0.0",
     "core-js": "^2.0.0",
     "css-loader": "^0.23.0",
     "diff": "^3.1.0",
