@@ -1,22 +1,13 @@
 import renderer from 'src/util/render';
 import Widget from 'src/components/Widget';
-import xhr from 'src/util/xhr';
+import XHRPromise from 'xhr-promise';
 
 class YahooWeather {
   static MAX_FORECAST_DAYS = 5;
 
-  constructor() {
-    this.data = null;
-  }
-
-  setData(data) {
-    this.data = data;
-    this.refresh();
-  }
-
-  buildRequest() {
+  buildRequest(location) {
     const API = 'https://query.yahooapis.com/v1/public/yql';
-    const query = 'select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="maclean, va")';
+    const query = `select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${location}")`;
     const store = 'store://datatables.org/alltableswithke';
     const options = {
       q: escape(query),
@@ -58,39 +49,40 @@ class YahooWeather {
     console.warn('Unable to fetch data from Yahoo Weather'); /*eslint no-console: 0*/
   }
 
-  fetchData() {
-    xhr.send({
-      method: 'GET',
-      url: this.buildRequest()
-    })
-    .then((data) => {
-      const {responseText: {query: {results}}} = data;
-      if (results) {
-        this.setData(this.processData(results));
-      } else {
-        this.setData({error: true});
-      }
-    })
-    .catch((error) => {
-      this.setData({error});
+  fetchData(location) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XHRPromise();
+      xhr.send({
+        method: 'GET',
+        url: this.buildRequest(location)
+      })
+      .then((data) => {
+        const {responseText: {query: {results}}} = data;
+        if (results) {
+          resolve(this.processData(results));
+        } else {
+          reject();
+        }
+      })
+      .catch((error) => {
+        console.log(error); /* es-lint no-console 0 */
+        reject();
+      });
     });
   }
 
-  render(container) {
-    if (container) {
-      this.container = container;
-    }
-
-    if (!this.data) {
-      this.fetchData();
-    }
-    renderer(new Widget(), this.container);
+  render(container, location) {
+    const widget = new Widget();
+    this.fetchData(location).then((data)=>{
+      widget.props = data;
+      renderer(widget, container);
+    })
+    .catch(() => {
+      widget.props = {error: true};
+      renderer(widget, container);
+    });
+    renderer(widget, container);
   }
-
-  refresh() {
-    renderer(new Widget(this.data), this.container);
-  }
-
 }
 
 export default YahooWeather;
