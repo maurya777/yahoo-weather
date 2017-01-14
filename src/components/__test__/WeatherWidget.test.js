@@ -3,13 +3,13 @@
 /*eslint no-console: 0*/
 'use strict';
 
-import Widget from 'src/components/Widget';
+import WeatherWidget from 'src/components/WeatherWidget';
 import render from 'src/util/render';
 
-describe('<Widget>', () => {
+describe('<WeatherWidget>', () => {
 
   describe('shows loading', function () {
-    const widget = new Widget();
+    const widget = new WeatherWidget();
 
     before(() => {
       render(widget, document.body);
@@ -26,7 +26,7 @@ describe('<Widget>', () => {
   });
 
   describe('shows error', function () {
-    const widget = new Widget({error: true});
+    const widget = new WeatherWidget({error: true});
 
     before(() => {
       render(widget, document.body);
@@ -53,7 +53,7 @@ describe('<Widget>', () => {
         {day: 'Sat', high: '55', low: '40'}
       ]
     };
-    const widget = new Widget(props);
+    const widget = new WeatherWidget(props);
 
     before(() => {
       render(widget, document.body);

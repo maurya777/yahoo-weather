@@ -3,7 +3,7 @@ import Weather from 'src/components/Weather';
 import Forecast from 'src/components/Forecast';
 import 'src/styles/main.scss';
 
-class Widget extends Component {
+class WeatherWidget extends Component {
   constructor(props) {
     super();
     this.props = props;
@@ -48,4 +48,4 @@ class Widget extends Component {
   }
 }
 
-export default Widget;
+export default WeatherWidget;

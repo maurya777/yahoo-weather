@@ -1,5 +1,5 @@
 import renderer from 'src/util/render';
-import Widget from 'src/components/Widget';
+import WeatherWidget from 'src/components/WeatherWidget';
 import XHRPromise from 'xhr-promise';
 
 class YahooWeather {
@@ -73,7 +73,7 @@ class YahooWeather {
     if (!container) {
       throw new Error('YahooWeather needs a container to render');
     }
-    const widget = new Widget();
+    const widget = new WeatherWidget();
     this.fetchData(location).then((data)=>{
       widget.props = data;
       renderer(widget, container);
