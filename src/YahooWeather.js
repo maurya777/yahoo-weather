@@ -6,6 +6,9 @@ class YahooWeather {
   static MAX_FORECAST_DAYS = 5;
 
   buildRequest(location) {
+    if (!location || location.length === 0) {
+      throw new Error('no location passed to build request');
+    }
     const API = 'https://query.yahooapis.com/v1/public/yql';
     const query = `select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${location}")`;
     const store = 'store://datatables.org/alltableswithke';
@@ -38,15 +41,11 @@ class YahooWeather {
     return {
       temperature: temp,
       overall    : text,
-      city       : `${location.city}, ${location.region}`,
+      city       : `${location.city},${location.region}`,
       image      : this.parseImageURL(description),
       forecast   : forecast.slice(0,YahooWeather.MAX_FORECAST_DAYS),
       unit       : units.temperature
     };
-  }
-
-  processError() {
-    console.warn('Unable to fetch data from Yahoo Weather'); /*eslint no-console: 0*/
   }
 
   fetchData(location) {
@@ -64,14 +63,16 @@ class YahooWeather {
           reject();
         }
       })
-      .catch((error) => {
-        console.log(error); /* es-lint no-console 0 */
+      .catch(() => {
         reject();
       });
     });
   }
 
   render(container, location) {
+    if (!container) {
+      throw new Error('YahooWeather needs a container to render');
+    }
     const widget = new Widget();
     this.fetchData(location).then((data)=>{
       widget.props = data;
