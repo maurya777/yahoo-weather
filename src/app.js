@@ -1,5 +1,5 @@
 import YahooWeather from 'src/YahooWeather';
-import './app.scss';
+import './app.css';
 
 const app = new YahooWeather();
 app.render(document.getElementById('widget-container-1'), 'mclean, va');

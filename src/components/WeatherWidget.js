@@ -1,7 +1,7 @@
 import Component from 'src/components/Component';
 import Weather from 'src/components/Weather';
 import Forecast from 'src/components/Forecast';
-import 'src/styles/main.scss';
+import 'src/styles/main.css';
 
 class WeatherWidget extends Component {
   constructor(props) {
