@@ -1,6 +1,6 @@
 import renderer from 'src/util/render';
 import WeatherWidget from 'src/components/WeatherWidget';
-import XHR from 'src/util/xhr';
+import XHRPromise from 'xhr-promise';
 
 class YahooWeather {
   static MAX_FORECAST_DAYS = 5;
@@ -50,13 +50,13 @@ class YahooWeather {
 
   fetchData(location) {
     return new Promise((resolve, reject) => {
-      const xhr = new XHR();
+      const xhr = new XHRPromise();
       xhr.send({
         method: 'GET',
         url: this.buildRequest(location)
       })
       .then((data) => {
-        const {query: {results}} = data;
+        const {responseText: {query: {results}}} = data;
         if (results) {
           resolve(this.processData(results));
         } else {
